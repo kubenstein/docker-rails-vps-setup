@@ -27,6 +27,10 @@ ADD post-receive-hook.sh app.git/hooks/post-receive
 RUN chmod +x app.git/hooks/post-receive
 RUN chown git app.git/hooks/post-receive
 
+ADD launch-new-version.sh launch-new-version.sh
+RUN chmod +x launch-new-version.sh
+RUN chown git launch-new-version.sh
+
 # link project git repo to root location
 # just for convenience
 RUN ln -s /home/git/app.git /app.git

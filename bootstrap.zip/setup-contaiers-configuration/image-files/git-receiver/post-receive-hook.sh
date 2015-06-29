@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-# this script builds app image,
-# stops already running container and start new one.
+# this script launch app updateing pipeline
+# when new version of come has been pushed to repo
 #
-# ONLY IF WE PUSH TO MASTER
+# only pushing to master branch will trigger rebuilding
 #
 
 function deploy_new_version() {
-  echo "deploying new version"
+  ~/launch-new-version.sh
 }
 
 #-------
