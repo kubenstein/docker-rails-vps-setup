@@ -52,12 +52,15 @@ function setup_basic_containers() {
 
   cd setup-contaiers-configuration/
   docker build -t setup-contaiers-configuration .
+
   echo "* start CONFIGURATOR container"
   docker run -t --rm \
              --name configurator \
              -v /var/run/docker.sock:/var/run/docker.sock \
              -e "GIT_USER_PASSWORD=$GIT_USER_PASSWORD" \
              setup-contaiers-configuration
+
+  docker rmi setup-contaiers-configuration
 
 EOF
 }
