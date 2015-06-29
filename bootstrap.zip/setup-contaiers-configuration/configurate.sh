@@ -4,6 +4,11 @@
 # It will create all basic containers on the host mashine
 #
 
+# swtich to script location
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+cd $SCRIPT_DIR
+
+
 function main() {
   build_custom_images
   setup_db_volume_container
