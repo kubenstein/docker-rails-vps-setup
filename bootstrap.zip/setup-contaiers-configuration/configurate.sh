@@ -14,7 +14,8 @@ function main() {
 
 
 function build_custom_images() {
-  docker build -t git-receiver ./image-files/git-receiver
+  echo -e "\n* [CONFIGURATOR] building custom images"
+  docker build -t git-receiver-image ./image-files/git-receiver
 }
 
 
@@ -42,10 +43,10 @@ function setup_db_container() {
 
 function setup_git_receiver_storage() {
   echo -e "\n* [CONFIGURATOR] setup git receiver storage"
-  if container_exists "db-storage"; then return; fi
+  if container_exists "git-receiver-storage"; then return; fi
 
   docker run -d --name git-receiver-storage \
-                git-receiver /bin/true
+                git-receiver-image /bin/true
 }
 
 
@@ -60,7 +61,7 @@ function setup_git_receiver() {
                 --volumes-from git-receiver-storage \
                 -v /var/run/docker.sock:/var/run/docker.sock \
                 -e "GIT_USER_PASSWORD=$GIT_USER_PASSWORD" \
-                git-receiver
+                git-receiver-image
 }
 
 

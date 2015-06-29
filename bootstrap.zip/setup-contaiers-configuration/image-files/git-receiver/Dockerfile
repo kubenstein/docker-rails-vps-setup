@@ -2,8 +2,8 @@ FROM debian:wheezy
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update -qq \
-    && apt-get install -y openssh-server git 
+RUN apt-get -qq update \
+    && apt-get -qq install -y openssh-server git 
 
 # setup ssh
 RUN mkdir -p /var/run/sshd
