@@ -15,7 +15,8 @@ RUN apt-get -qq update \
 # install docker cli
 RUN wget https://get.docker.com/builds/Linux/x86_64/docker-$DOCKER_VERSION \
     && chmod +x docker-1.7.0 \
-    && mv docker-$DOCKER_VERSION /usr/local/bin/docker
+    && mv docker-$DOCKER_VERSION /usr/local/bin/docker \
+    && groupadd -g 999 docker
 
 # add all files that are required to build basic containers
 RUN mkdir image-files
