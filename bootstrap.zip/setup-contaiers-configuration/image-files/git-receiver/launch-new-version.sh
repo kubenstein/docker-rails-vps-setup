@@ -4,26 +4,38 @@
 # stops already running container and start new one.
 #
 
-cd ~/app.git
-
 
 function main() {
+  clone_project_to_temp
   rebuild_app_image
   stop_existing_app
   launch_new_version
+  clean_temp
+}
+
+
+function clone_project_to_temp() {
+  echo -e "\n* [BUILDER] creating project temp files"
+  git clone /app.git /tmp/app-code
+}
+
+
+function clean_temp() {
+  echo -e "\n* [BUILDER] removing temp project files"
+  rm -rf /tmp/app-code
 }
 
 
 function rebuild_app_image() {
   echo -e "\n* [BUILDER] building app image"
-  docker build -t app-image .
+  docker build -t app-image /tmp/app-code/
 }
 
 
 function stop_existing_app() {
   echo -e "\n* [BUILDER] stoping exisitng app containers"
   APP_CONTAINERS=$(docker ps | grep "app-image" | cut -d' ' -f1)
-  if [ -z "$APP_CONTAINERS" ]; then
+  if [ -n "$APP_CONTAINERS" ]; then
     docker stop $APP_CONTAINERS
     docker rm -v $APP_CONTAINERS
   fi
