@@ -60,6 +60,7 @@ function setup_basic_containers() {
              -e "GIT_USER_PASSWORD=$GIT_USER_PASSWORD" \
              setup-contaiers-configuration
 
+  echo "* remove CONFIGURATOR tmp images"
   docker rmi setup-contaiers-configuration
 
 EOF
