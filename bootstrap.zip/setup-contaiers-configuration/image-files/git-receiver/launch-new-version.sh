@@ -20,25 +20,25 @@ function main() {
 
 
 function clone_project_to_temp() {
-  echo -e "\n* [BUILDER] creating project temp files"
+  echo -e "== [BUILDER] creating project temp files"
   git clone /app.git /tmp/app-code
 }
 
 
 function clean_temp() {
-  echo -e "\n* [BUILDER] removing temp project files"
+  echo -e "== [BUILDER] removing temp project files"
   rm -rf /tmp/app-code
 }
 
 
 function rebuild_app_image() {
-  echo -e "\n* [BUILDER] building app image"
+  echo -e "== [BUILDER] building app image"
   docker build -t app-image /tmp/app-code/
 }
 
 
 function stop_existing_app() {
-  echo -e "\n* [BUILDER] stoping exisitng app containers"
+  echo -e "== [BUILDER] stoping exisitng app containers"
   APP_CONTAINERS=$(docker ps -a | grep "app-image" | cut -d' ' -f1)
   if [ -n "$APP_CONTAINERS" ]; then
     docker stop $APP_CONTAINERS
@@ -48,12 +48,19 @@ function stop_existing_app() {
 
 
 function launch_new_version() {
-  echo -e "\n* [BUILDER] launching new version"
+  echo -e "== [BUILDER] launching new version"
   docker run -d --name app-01 \
                 -p 80:3000 --link db \
                 app-image
 }
 
 
+# private
+function heroku_like_output() {
+  sed -u "s/^/"$'\e[1G'"        /" \
+  | sed -u "s/==/"$'\e[1G'"------>/"
+}
+
+
 # run!
-main
+main | heroku_like_output
