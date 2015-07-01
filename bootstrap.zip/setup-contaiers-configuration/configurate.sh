@@ -10,11 +10,20 @@ cd $SCRIPT_DIR
 
 
 function main() {
+  check_for_necessary_variables
   build_custom_images
   setup_db_volume_container
   setup_db_container
   setup_git_receiver_storage
   setup_git_receiver
+}
+
+
+function check_for_necessary_variables() {
+  if [ -z "$GIT_USER_PASSWORD" ]; then
+    echo "*********** provide password for git user ***********"
+    read GIT_USER_PASSWORD
+  fi
 }
 
 
