@@ -25,14 +25,17 @@ function main() {
 
 
 function add_non_root_user_on_host() {
-  echo "*********** add user ovh ***********"
-  sudo adduser ovh sudo
+  echo "*********** add non-root user ***********"
+  echo "username: "
+  read NON_ROOT_USER
+  sudo adduser --gecos "" $NON_ROOT_USER
+  sudo adduser $NON_ROOT_USER sudo
 }
 
 
 function add_docker_user_on_host() {
   echo "*********** add user docker-host ***********"
-  sudo adduser docker-host
+  sudo adduser --gecos "" docker-host
 }
 
 
