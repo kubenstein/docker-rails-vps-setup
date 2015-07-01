@@ -50,7 +50,8 @@ function stop_existing_app() {
 function launch_new_version() {
   echo -e "== [BUILDER] launching new version"
   docker run -d --name app-01 \
-                -p 80:3000 --link db \
+                -p 80:3000 \
+                --link db \
                 app-image
 }
 
