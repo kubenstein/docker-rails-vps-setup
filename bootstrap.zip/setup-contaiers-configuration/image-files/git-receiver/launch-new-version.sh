@@ -8,8 +8,13 @@
 function main() {
   clone_project_to_temp
   rebuild_app_image
-  stop_existing_app
-  launch_new_version
+
+  BUILD_EXIT_CODE=$?
+  if [ $BUILD_EXIT_CODE == 0 ]; then
+    stop_existing_app
+    launch_new_version
+  fi
+
   clean_temp
 }
 
