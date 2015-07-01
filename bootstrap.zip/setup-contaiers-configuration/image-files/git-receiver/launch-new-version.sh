@@ -39,7 +39,7 @@ function rebuild_app_image() {
 
 function stop_existing_app() {
   echo -e "\n* [BUILDER] stoping exisitng app containers"
-  APP_CONTAINERS=$(docker ps | grep "app-image" | cut -d' ' -f1)
+  APP_CONTAINERS=$(docker ps -a | grep "app-image" | cut -d' ' -f1)
   if [ -n "$APP_CONTAINERS" ]; then
     docker stop $APP_CONTAINERS
     docker rm -v $APP_CONTAINERS
