@@ -7,10 +7,10 @@ FROM debian:wheezy
 
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV DOCKER_VERSION 1.6.2
-
 RUN apt-get -qq update \
     && apt-get -qq install -y wget ca-certificates
+
+ENV DOCKER_VERSION 1.6.2
 
 # install docker cli
 RUN wget https://get.docker.com/builds/Linux/x86_64/docker-$DOCKER_VERSION \
