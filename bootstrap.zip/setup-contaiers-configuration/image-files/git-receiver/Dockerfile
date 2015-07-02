@@ -12,14 +12,14 @@ FROM debian:wheezy
 
 ENV DEBIAN_FRONTEND noninteractive
 
-ENV DOCKER_VERSION 1.7.0
+ENV DOCKER_VERSION 1.6.2
 
 RUN apt-get -qq update \
     && apt-get -qq install -y wget ca-certificates
 
 # install docker cli
 RUN wget https://get.docker.com/builds/Linux/x86_64/docker-$DOCKER_VERSION \
-    && chmod +x docker-1.7.0 \
+    && chmod +x docker-$DOCKER_VERSION \
     && mv docker-$DOCKER_VERSION /usr/local/bin/docker \
     && groupadd -g 999 docker
 
