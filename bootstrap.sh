@@ -3,6 +3,7 @@
 # this script copies all nesesry files to remote server
 # and initializes bootstrap process.
 #
+set -e
 
 # swtich to script location
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
@@ -20,20 +21,20 @@ function gather_credentials() {
   echo "*********** provide host ip ***********"
   read HOST_IP
 
-  echo "*********** provide host user ***********"
-  read HOST_USER
+  echo "*********** provide host root user ***********"
+  read HOST_ROOT_USER
 }
 
 
 function copy_files() {
   echo "* copy files to $HOST_IP"
-  scp -r bootstrap.zip/ $HOST_USER@$HOST_IP:~/
+  scp -r bootstrap.zip/ $HOST_ROOT_USER@$HOST_IP:~/
 }
 
 
 function initialize_process() {
   echo "* ssh to $HOST_IP to initialize setup"
-  ssh -t $HOST_USER@$HOST_IP '~/bootstrap.zip/setup.sh'
+  ssh -t $HOST_ROOT_USER@$HOST_IP 'sudo sh -c "cp -R ~/bootstrap.zip /usr/shared/ && sleep 3 && /usr/shared/bootstrap.zip/setup.sh"'
 }
 
 
