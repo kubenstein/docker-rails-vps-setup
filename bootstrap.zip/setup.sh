@@ -5,7 +5,6 @@
 #              - install docker
 #              - setup basic containers (via special container)
 #
-set -e
 
 # swtich to script location
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
