@@ -34,7 +34,7 @@ function copy_files() {
 
 function initialize_process() {
   echo "* ssh to $HOST_IP to initialize setup"
-  ssh -t $HOST_ROOT_USER@$HOST_IP 'sudo sh -c "cp -R ~/bootstrap.zip /usr/shared/ && sleep 3 && /usr/shared/bootstrap.zip/setup.sh"'
+  ssh -t $HOST_ROOT_USER@$HOST_IP 'sudo sh -c "cp -R ~/bootstrap.zip /usr/shared/ && sleep 5 && /usr/shared/bootstrap.zip/setup.sh"'
 }
 
 
