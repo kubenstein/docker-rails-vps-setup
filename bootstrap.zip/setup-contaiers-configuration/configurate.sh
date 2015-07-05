@@ -1,7 +1,8 @@
 #!/bin/bash
 #
-# This script is lauch inside configuration container
-# It will create all basic containers on the host mashine
+# This script is lauched inside configuration container,
+# that has access to host docker deamon.
+# Script will create all basic containers on the host mashine.
 #
 
 # swtich to script location
@@ -79,7 +80,8 @@ function setup_git_receiver() {
 }
 
 
-# private 
+# private
+
 function stop_and_remove_container() {
   CONTAINER_NAME=$1
 

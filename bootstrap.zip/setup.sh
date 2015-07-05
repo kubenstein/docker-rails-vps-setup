@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# This script run on bare virtual machine to configure it.
+# This script runs on bare virtual machine to configure it.
 # script will: - add proper users
 #              - install docker
 #              - setup basic containers (via special container)

@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-# this script copies all nesesry files to remote server
-# and initializes bootstrap process.
+# This script copies all necessary files to remote server,
+# then initializes bootstrap process.
 #
 set -e
 

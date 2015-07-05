@@ -1,9 +1,8 @@
 #!/bin/bash
 #
-# this script launch app updateing pipeline
-# when new version of come has been pushed to repo
+# This script launches app updating pipeline on git push.
 #
-# only pushing to master branch will trigger rebuilding
+# Only pushing to master branch will trigger rebuilding.
 #
 
 function deploy_new_version() {

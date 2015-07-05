@@ -1,7 +1,7 @@
 #
-# this is configurator Dockerfile
-# it will build container with docker-cli
-# then run configurate.sh
+# This is configurator Dockerfile.
+# It will build special config container with access to host docker deamon.
+# Whole logic is in configurate.sh script
 
 FROM debian:wheezy
 
