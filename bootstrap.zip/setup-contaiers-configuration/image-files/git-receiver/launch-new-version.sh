@@ -1,7 +1,8 @@
 #!/bin/bash
 #
-# this script builds app image from app source,
-# stops already running container and start new one.
+# This script builds app image from app source.
+# If build was successful old all container is stoped and replaced
+# by new one.
 #
 
 
@@ -51,12 +52,13 @@ function launch_new_version() {
   echo -e "== [BUILDER] launching new version"
   docker run -d --name app-01 \
                 -p 80:3000 \
-                --link db \
+                --link db:db \
                 app-image
 }
 
 
 # private
+
 function heroku_like_output() {
   sed -u "s/^/"$'\e[1G'"        /" \
   | sed -u "s/==/"$'\e[1G'"------>/"
