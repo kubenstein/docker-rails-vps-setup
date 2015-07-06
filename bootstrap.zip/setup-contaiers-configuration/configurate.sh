@@ -15,22 +15,17 @@ function main() {
   build_custom_images
   setup_db_volume_container
   setup_db_container
+  setup_db_backup_container
   setup_git_receiver_storage
   setup_git_receiver
-}
 
-
-function check_for_necessary_variables() {
-  if [ -z "$GIT_USER_PASSWORD" ]; then
-    echo "*********** provide password for git user ***********"
-    read GIT_USER_PASSWORD
-  fi
 }
 
 
 function build_custom_images() {
   echo -e "\n* [CONFIGURATOR] building custom images"
   docker build -t git-receiver-image ./image-files/git-receiver
+  docker build -t db-backup-image ./image-files/db-backup
 }
 
 
@@ -77,6 +72,44 @@ function setup_git_receiver() {
                 -v /var/run/docker.sock:/var/run/docker.sock \
                 -e "GIT_USER_PASSWORD=$GIT_USER_PASSWORD" \
                 git-receiver-image
+}
+
+function setup_db_backup_container() {
+  echo -e "\n* [CONFIGURATOR] setup db backup"
+  if container_exists "db-backup"; then 
+    stop_and_remove_container db-backup
+  fi
+
+  docker run -d --name db-backup \
+                --volumes-from db-storage \
+                -v /etc/localtime:/etc/localtime:ro \
+                -e "S3_BACKUP_BUCKET=$S3_BACKUP_BUCKET" \
+                -e "S3_KEY=$S3_KEY" \
+                -e "S3_SECRET=$S3_SECRET" \
+                db-backup-image
+}
+
+
+function check_for_necessary_variables() {
+  if [ -z "$GIT_USER_PASSWORD" ]; then
+    echo "*********** provide password for git user ***********"
+    read GIT_USER_PASSWORD
+  fi
+
+  if [ -z "$S3_BACKUP_BUCKET" ]; then
+    echo "*********** provide name of s3 bucket (for backups) ***********"
+    read S3_BACKUP_BUCKET
+  fi
+
+  if [ -z "$S3_KEY" ]; then
+    echo "*********** provide name of s3 key (for backups) ***********"
+    read S3_KEY
+  fi 
+
+  if [ -z "$S3_SECRET" ]; then
+    echo "*********** provide name of s3 secret (for backups) ***********"
+    read S3_SECRET
+  fi 
 }
 
 

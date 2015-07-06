@@ -56,13 +56,11 @@ function install_docker_if_needed() {
 
 function setup_basic_containers() {
   echo "*********** setuping bootstrap container ***********"
-  sudo su docker-host <<EOF
-
   cd setup-contaiers-configuration/
   docker build -t setup-contaiers-configuration .
 
   echo "* start CONFIGURATOR container"
-  docker run -t --rm \
+  docker run -it --rm \
              --name configurator \
              -v /var/run/docker.sock:/var/run/docker.sock \
              -e "GIT_USER_PASSWORD=$GIT_USER_PASSWORD" \
@@ -71,7 +69,6 @@ function setup_basic_containers() {
   echo "* remove CONFIGURATOR tmp images"
   docker rmi setup-contaiers-configuration
 
-EOF
 }
 
 
