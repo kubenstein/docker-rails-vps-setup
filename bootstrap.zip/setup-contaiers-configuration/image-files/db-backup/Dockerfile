@@ -10,8 +10,10 @@ RUN apt-get -qq update \
 
 ADD s3-uploader.sh ./
 ADD init.sh ./
+ADD create-backup.sh ./
 
 RUN chmod +x s3-uploader.sh \
- && chmod +x init.sh
+ && chmod +x init.sh \
+ && chmod +x create-backup.sh
 
 CMD ["./init.sh"]

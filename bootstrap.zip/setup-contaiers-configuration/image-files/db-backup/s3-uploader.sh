@@ -23,4 +23,4 @@ curl -# -X PUT -T "$FILE_PATH" \
      -H "Content-Type: ${CONTENT_TYPE}" \
      -H "Content-MD5: ${MD5}" \
      -H "Authorization: AWS ${S3_KEY}:${SIGNATURE}" \
-     https://${S3_BACKUP_BUCKET}.s3.amazonaws.com/backups/${FILE_NAME}
+     https://${S3_BACKUP_BUCKET}.s3.amazonaws.com/${FILE_NAME}
