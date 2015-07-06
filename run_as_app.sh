@@ -13,12 +13,7 @@ function main() {
   fi
 
   check_for_necessary_variables
-  run_as_app $COMMAND
-}
 
-
-function run_as_app() {
-  COMMAND=$@
   ssh -t -t docker-host@$HOST_IP "docker run --rm -it --link db:db app-image $COMMAND"
 }
 

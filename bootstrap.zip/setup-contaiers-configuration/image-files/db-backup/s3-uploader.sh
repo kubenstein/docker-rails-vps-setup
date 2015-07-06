@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # This script uploads file from the input to s3.
-# S3_BACKUP_S3_BACKUP_BUCKET, S3_KEY, S3_SECRET env variables needs to be provided.
+# S3_BACKUP_BUCKET, S3_KEY, S3_SECRET env variables needs to be provided.
 #
 # ! WARNING: curl users --insecure flag
 #
