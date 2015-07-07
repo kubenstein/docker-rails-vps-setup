@@ -44,5 +44,6 @@ Git receiver will listen on port 2222 (22 is reserved for ssh to host machine it
 TODO:
 -------
 - restoring db from s3 backup
+- store secrets persistently
 - add monitoring
 - add ability to have multiple app instnaces
