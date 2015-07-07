@@ -16,11 +16,12 @@ MD5=$(openssl dgst -md5 -binary "$FILE_PATH" | base64)
 STRING_TO_SIGN="PUT\n${MD5}\n${CONTENT_TYPE}\n${DATE_VALUE}\n${RESOURCE}"
 SIGNATURE=$(echo -en ${STRING_TO_SIGN} | openssl sha1 -hmac ${S3_SECRET} -binary | base64)
 echo $FILE_PATH
-curl -# -X PUT -T "$FILE_PATH" \
+curl -X PUT -T "$FILE_PATH" \
+     --progress-bar \
      --insecure \
      -H "Host: ${S3_BACKUP_BUCKET}.s3.amazonaws.com" \
      -H "Date: ${DATE_VALUE}" \
      -H "Content-Type: ${CONTENT_TYPE}" \
      -H "Content-MD5: ${MD5}" \
      -H "Authorization: AWS ${S3_KEY}:${SIGNATURE}" \
-     https://${S3_BACKUP_BUCKET}.s3.amazonaws.com/${FILE_NAME}
+     https://${S3_BACKUP_BUCKET}.s3.amazonaws.com/${FILE_NAME} > /dev/null
