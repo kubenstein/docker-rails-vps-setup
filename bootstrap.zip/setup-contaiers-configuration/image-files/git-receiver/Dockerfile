@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get -qq update \
     && apt-get -qq install -y wget ca-certificates
 
-ENV DOCKER_VERSION 1.6.2
+ENV DOCKER_VERSION 1.7.0
 
 # install docker cli
 RUN wget https://get.docker.com/builds/Linux/x86_64/docker-$DOCKER_VERSION \
