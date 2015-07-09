@@ -44,7 +44,7 @@ function add_docker_user_on_host() {
 
 function install_docker_if_needed() {
   echo "*********** install docker ***********"
-  DOCKER_INSTALLED=$(sudo initctl list | grep 'docker start/running' | wc -l)
+  local DOCKER_INSTALLED=$(sudo initctl list | grep 'docker start/running' | wc -l)
   if [ $DOCKER_INSTALLED -eq 0 ]; then
     sudo apt-get install -qq -y wget
     sudo sh -c "wget -qO- https://get.docker.com/ | sed 's/lxc-docker/lxc-docker-1.7.0/' | sh"

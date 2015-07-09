@@ -10,7 +10,7 @@ function main() {
   clone_project_to_temp
   rebuild_app_image
 
-  BUILD_EXIT_CODE=$?
+  local BUILD_EXIT_CODE=$?
   if [ $BUILD_EXIT_CODE == 0 ]; then
     stop_existing_app
     launch_new_version
@@ -40,7 +40,7 @@ function rebuild_app_image() {
 
 function stop_existing_app() {
   echo -e "== [BUILDER] stoping exisitng app containers"
-  APP_CONTAINERS=$(docker ps -a | grep "app-image" | cut -d' ' -f1)
+  local APP_CONTAINERS=$(docker ps -a | grep "app-image" | cut -d' ' -f1)
   if [ -n "$APP_CONTAINERS" ]; then
     docker stop $APP_CONTAINERS
     docker rm -v $APP_CONTAINERS

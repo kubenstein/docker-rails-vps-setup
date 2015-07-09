@@ -116,7 +116,7 @@ function check_for_necessary_variables() {
 # private
 
 function stop_and_remove_container() {
-  CONTAINER_NAME=$1
+  local CONTAINER_NAME=$1
 
   # todo add some checks if container is running
   # to prevent displaying errors
@@ -124,7 +124,7 @@ function stop_and_remove_container() {
 }
 
 function container_exists() {
-  ID=$(docker inspect --format="{{ .Id }}" $1 2> /dev/null)
+  local ID=$(docker inspect --format="{{ .Id }}" $1 2> /dev/null)
   if [ -n "$ID" ]; then
     return 0; # 0 = true
   fi
