@@ -34,25 +34,26 @@ USER git
 
 RUN mkdir -p /home/git/.ssh \
  && touch /home/git/.ssh/authorized_keys \
- && git init --bare app.git
+ && mkdir -p /home/git/code/ \
+ && git init --bare code/app.git
 
 # add git hooks files
 USER root
-ADD post-receive-hook.sh app.git/hooks/post-receive
+ADD post-receive-hook.sh code/app.git/hooks/post-receive
 ADD launch-new-version.sh launch-new-version.sh
 ADD git-receiver-startup.sh ./
 
-RUN chmod +x app.git/hooks/post-receive \
- && chown git app.git/hooks/post-receive \
+RUN chmod +x code/app.git/hooks/post-receive \
+ && chown git code/app.git/hooks/post-receive \
  && chmod +x launch-new-version.sh \
  && chown git launch-new-version.sh \
  && chmod +x git-receiver-startup.sh \
  # link git repo to root location, just for convinience
- && ln -s /home/git/app.git /app.git
+ && ln -s /home/git/code/app.git /app.git
 
 
-# allow to persist public keys
-VOLUME /home/git/.ssh
+# store app code in external container
+VOLUME /home/git/code/
 
 EXPOSE 22
 
