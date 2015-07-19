@@ -23,6 +23,7 @@ function main() {
 function clone_project_to_temp() {
   echo -e "== [BUILDER] creating project temp files"
   git clone /app.git /tmp/app-code
+  find /tmp/app-code/ | grep -v .git | xargs touch -t 200001010000.00
 }
 
 
